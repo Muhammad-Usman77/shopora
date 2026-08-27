@@ -1,24 +1,101 @@
-import 'package:flutter/material.dart';
+//═══════════════════════════════════════════════════════════
+// 📁 PAGE 3: ui/home_page.dart
+// ═══════════════════════════════════════════════════════════
 
-class HomePage extends StatefulWidget {
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shopora/provider/authprovider.dart';
+import 'package:shopora/views/auth/login.dart';
+
+class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final logoutState = ref.watch(logoutProvider);
 
-class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return  Scaffold(
+    /// ✅ Listen for logout success/error
+    ref.listen(logoutProvider, (previous, next) {
+  if (next.data != null && previous?.data == null) {
+    
+    // ✅ ADD KAREIN: Logout pe user data clear karein
+    ref.read(currentUserProvider.notifier).state = null;
+ 
+
+    // ✅ YEH LINE ADD KAREIN - loginProvider bhi reset karein
+    ref.read(loginProvider.notifier).reset();
+       // ✅ YEH LINE ADD KAREIN - logoutProvider khud ko bhi reset karein
+    ref.read(logoutProvider.notifier).reset();
+    // ✅ Navigate to Login Page after logout
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (_) => const LoginPage()),
+    );
+  }
+
+  if (next.error != null && previous?.error != next.error) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(next.error!)),
+    );
+  }
+});
+    return Scaffold(
       appBar: AppBar(
-        title: Text("Home Page"),
-        centerTitle: true,
+        title: const Text("Home"),
+        backgroundColor: Colors.blue,
+        automaticallyImplyLeading: false,
       ),
-      body: Column(
-        children: [
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(Icons.check_circle, size: 80, color: Colors.green),
 
-        ],
+            const SizedBox(height: 20),
+
+            const Text(
+              "Welcome! You are logged in.",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            ),
+
+            const SizedBox(height: 40),
+
+            /// LOGOUT BUTTON
+            ElevatedButton.icon(
+              onPressed: logoutState.isLoading
+                  ? null
+                  : () {
+                      ref.read(logoutProvider.notifier).callApi(
+                            () => ref.read(authRepositoryProvider).logout(),
+                          );
+                    },
+              icon: logoutState.isLoading
+                  ? const SizedBox(
+                      height: 16,
+                      width: 16,
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                        strokeWidth: 2,
+                      ),
+                    )
+                  : const Icon(Icons.logout, color: Colors.white),
+              label: Text(
+                logoutState.isLoading ? "Logging out..." : "Logout",
+                style: const TextStyle(color: Colors.white),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.red,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 30,
+                  vertical: 14,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
