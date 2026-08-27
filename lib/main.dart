@@ -1,24 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:shopora/home.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shopora/api_client.dart';
+import 'package:shopora/views/auth/signup.dart';
 
 void main() {
-  runApp(const MyApp());
+  setupApi();
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-     
-        colorScheme: .fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
       ),
-      home:const HomePage() ,
+      home: SignupPage(),
     );
   }
 }
 
+
+/*
+1️⃣ Model       → "Data ka shape kya hai"
+        ↓
+2️⃣ Service     → "API ko request kaise jati hai"
+        ↓
+3️⃣ Repository  → "Response kaise safe banaya jata hai"
+        ↓
+4️⃣ Provider    → "State kaise manage hoti hai"
+        ↓
+5️⃣ UI          → "User action pe kya hota hai"
+*/
