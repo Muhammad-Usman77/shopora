@@ -16,12 +16,8 @@ class AuthServices {
         data: {"name": name, "email": email, "password": password},
       );
 
-  
-
       return response;
     } on DioException catch (e) {
-    
-
       throw Exception(e.response?.data?["msg"] ?? "Something went wrong");
     }
   }
@@ -47,17 +43,16 @@ class AuthServices {
       //   await cookieJar.loadForRequest(Uri.parse("http://192.168.1.106:3000")),
       // );
       return response;
-    } on DioException catch(e) {
+    } on DioException catch (e) {
       throw Exception(e.response?.data?["msg"] ?? "Login failed");
-    } catch(e){
-       throw Exception("Something went wrong: $e");
+    } catch (e) {
+      throw Exception("Something went wrong: $e");
     }
   }
 
+  //this is for logout
 
-//this is for logout
-
-Future<void> logout() async {
+  Future<void> logout() async {
     const String url = "http://192.168.1.106:3000/logout";
 
     try {
@@ -72,14 +67,11 @@ Future<void> logout() async {
         // print(await cookieJar.loadForRequest(
         //   Uri.parse("http://192.168.1.106:3000"),
         // ));
-       
       }
     } on DioException catch (e) {
-      print("Logout error: ${e.message}");
-    print("Response: ${e.response?.data}");
-
-    
+      //   print("Logout error: ${e.message}");
+      //print("Response: ${e.response?.data}");
+      throw Exception("Some thing went wrokng: $e");
     }
   }
-
 }
