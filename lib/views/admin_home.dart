@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopora/provider/authprovider.dart';
 import 'package:shopora/views/auth/login.dart';
+import 'package:shopora/views/product/product_list.dart';
 
 class AdminHomePage extends ConsumerWidget {
   const AdminHomePage({super.key});
@@ -33,7 +34,7 @@ class AdminHomePage extends ConsumerWidget {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             const Icon(Icons.admin_panel_settings, size: 80, color: Colors.deepPurple),
             const SizedBox(height: 20),
@@ -44,6 +45,18 @@ class AdminHomePage extends ConsumerWidget {
             const SizedBox(height: 10),
             const Text("You can manage products here"),
             const SizedBox(height: 40),
+            ElevatedButton(
+  onPressed: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => const ProductListPage()),
+    );
+  },
+  child: const Text("Manage Products"),
+),
+ const SizedBox(height: 40),
+
+  const SizedBox(height: 40),
             ElevatedButton.icon(
               onPressed: () {
                 ref.read(logoutProvider.notifier).callApi(
