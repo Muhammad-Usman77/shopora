@@ -27,7 +27,7 @@ class AuthRepository {
     final cookies = await cookieJar.loadForRequest(
       Uri.parse("http://192.168.1.106:3000"),
     );
-     print("🔵 SIGNUP - Cookies: $cookies");
+    // print("🔵 SIGNUP - Cookies: $cookies");
       return _safeResponse(response.data);
 
     } on DioException catch (e) {
@@ -48,7 +48,7 @@ class AuthRepository {
     final cookies = await cookieJar.loadForRequest(
       Uri.parse("http://192.168.1.106:3000"),
     );
-    print("🟢 LOGIN - Cookies: $cookies");
+   // print("🟢 LOGIN - Cookies: $cookies");
 
       return _safeResponse(response.data);
 
