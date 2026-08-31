@@ -4,7 +4,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shopora/provider/authprovider.dart';
+import 'package:shopora/admin/provider/authprovider.dart';
+import 'package:shopora/user/userviews/product_page.dart';
 import 'package:shopora/views/auth/login.dart';
 
 class HomePage extends ConsumerWidget {
@@ -59,7 +60,16 @@ class HomePage extends ConsumerWidget {
             ),
 
             const SizedBox(height: 40),
-
+           ElevatedButton(
+  onPressed: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => ProductBrowsePage()),
+    );
+  },
+  child: const Text("Manage Products"),
+),
+  const SizedBox(height: 20),
             /// LOGOUT BUTTON
             ElevatedButton.icon(
               onPressed: logoutState.isLoading
