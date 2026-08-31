@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shopora/model/product_model.dart';
-import 'package:shopora/provider/product_provider.dart';
+import 'package:shopora/admin/provider/product_provider.dart';
 
 class EditProductPage extends ConsumerStatefulWidget {
   final Map<String, dynamic> product;
