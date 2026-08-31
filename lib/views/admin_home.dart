@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shopora/provider/authprovider.dart';
+import 'package:shopora/admin/provider/authprovider.dart';
 import 'package:shopora/views/auth/login.dart';
 import 'package:shopora/views/product/product_list.dart';
 
