@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shopora/provider/product_provider.dart';
+import 'package:shopora/admin/provider/product_provider.dart';
 import 'package:shopora/views/product/addproduct.dart';
 import 'package:shopora/views/product/product_edit.dart';
 
@@ -101,11 +101,15 @@ class _ProductListPageState extends ConsumerState<ProductListPage> {
                         itemBuilder: (context, index) {
                           final product = productsState.data![index] as Map<String, dynamic>;
 
-                          final images = product['images'] as List?;
-                          final imageUrl = (images != null && images.isNotEmpty)
-                              ? images[0].toString()
-                              : null;
+                          // final images = product['images'] as List?;
+                          // final imageUrl = (images != null && images.isNotEmpty)
+                          //     ? images[0].toString()
+                          //     : null;
+final images = product['images'] as List?;
 
+final imageUrl = (images != null && images.isNotEmpty)
+    ? "http://192.168.1.106:3000${images[0]}"
+    : null;
                           return Card(
                             margin: const EdgeInsets.only(bottom: 12),
                             shape: RoundedRectangleBorder(
