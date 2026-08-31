@@ -8,7 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopora/home.dart';
 import 'package:shopora/model/login_model.dart';
 import 'package:shopora/model/user_model.dart';
-import 'package:shopora/provider/authprovider.dart';
+import 'package:shopora/admin/provider/authprovider.dart';
 import 'package:shopora/views/admin_home.dart';
 
 import 'package:shopora/views/auth/signup.dart';
