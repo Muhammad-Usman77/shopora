@@ -8,7 +8,7 @@ class AuthServices {
     required String email,
     required String password,
   }) async {
-    const String url = "http://192.168.1.106:3000/register";
+    const String url = "http://192.168.1.105:3000/register";
 
     try {
       final response = await dio.post(
@@ -27,7 +27,7 @@ class AuthServices {
     required String email,
     required String password,
   }) async {
-    const String url = 'http://192.168.1.106:3000/login';
+    const String url = 'http://192.168.1.105:3000/login';
 
     try {
       final response = await dio.post(
@@ -53,7 +53,7 @@ class AuthServices {
   //this is for logout
 
   Future<void> logout() async {
-    const String url = "http://192.168.1.106:3000/logout";
+    const String url = "http://192.168.1.105:3000/logout";
 
     try {
       final response = await dio.post(url);
@@ -75,8 +75,10 @@ class AuthServices {
     }
   }
   Future<Response> checkAuth() async {
-    const String url = "http://192.168.1.106:3000/profile";
-    final response = await dio.get(url);
-    return response;
-  }
+  const String url = "http://192.168.1.105:3000/profile";
+  print("📡 Calling checkAuth API...");   // ✅ Debug print
+  final response = await dio.get(url);
+  print("📡 checkAuth Response: ${response.data}");   // ✅ Debug print
+  return response;
+}
 }
