@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopora/api_client.dart';
 import 'package:shopora/splash_page.dart';
-import 'package:shopora/views/auth/signup.dart';
 
 
 void main() {
