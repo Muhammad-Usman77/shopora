@@ -76,18 +76,18 @@ class AuthRepository {
     }
   }
 
-   // ✅ NAYA FUNCTION - Safe auth check (error throw nahi karta)
-  Future<Map<String, dynamic>?> checkAuth() async {
-    try {
-      final response = await authServices.checkAuth();
-      return _safeResponse(response.data);
-    } on DioException {
-      // ✅ 401/403 aane pe null return karein — yeh error nahi, normal case hai
-      return null;
-    } catch (e) {
-      return null;
-    }
+Future<Map<String, dynamic>?> checkAuth() async {
+  try {
+    final response = await authServices.checkAuth();
+    return _safeResponse(response.data);
+  } on DioException catch (e) {
+    print("❌ ERROR TYPE: ${e.type}");           // ✅ ADD KAREIN
+    print("❌ ERROR MESSAGE: ${e.message}");      // ✅ ADD KAREIN
+    return null;
+  } catch (e) {
+    return null;
   }
+}
 
   // ───────────────────────────────────────────────────────
   // 🔒 PRIVATE HELPER: Safe response type checking
