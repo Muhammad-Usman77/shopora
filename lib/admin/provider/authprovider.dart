@@ -37,12 +37,16 @@ final checkAuthProvider = FutureProvider<UserModel?>((ref) async {
   final repo = ref.watch(authRepositoryProvider);
   final result = await repo.checkAuth();
 
+  print("🔍 checkAuthProvider result: $result");   // ✅ Debug print
+
   if (result != null && result["user"] != null) {
     final user = UserModel.fromMap(result["user"]);
+    print("✅ User found: ${user.email}, role: ${user.role}");   // ✅ Debug print
     ref.read(currentUserProvider.notifier).state = user;
     return user;
   }
 
+  print("❌ No user found - going to login");   // ✅ Debug print
   return null;
 });
 // ═══════════════════════════════════════════════════════════
