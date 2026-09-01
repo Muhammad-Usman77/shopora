@@ -17,6 +17,30 @@
 // (PersistCookieJar — cookies ab disk pe save hongi)
 // ═══════════════════════════════════════════════════════════
 
+// import 'package:dio/dio.dart';
+// import 'package:cookie_jar/cookie_jar.dart';
+// import 'package:dio_cookie_manager/dio_cookie_manager.dart';
+// import 'package:path_provider/path_provider.dart';
+
+// final dio = Dio();
+
+// late PersistCookieJar cookieJar;
+
+// Future<void> setupApi() async {
+//   final appDocDir = await getApplicationDocumentsDirectory();
+//   final cookiePath = "${appDocDir.path}/.cookies/";
+
+//   cookieJar = PersistCookieJar(
+//     ignoreExpires: true,
+//     storage: FileStorage(cookiePath),
+//   );
+
+//   dio.interceptors.add(
+//     CookieManager(cookieJar),
+//   );
+// }
+
+
 import 'package:dio/dio.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
@@ -38,5 +62,6 @@ Future<void> setupApi() async {
   dio.interceptors.add(
     CookieManager(cookieJar),
   );
-}
 
+  print("✅ setupApi() called - cookies will be saved at: $cookiePath");
+}
