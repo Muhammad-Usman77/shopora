@@ -50,6 +50,15 @@ class _ProductListPageState extends ConsumerState<ProductListPage> {
     );
   }
 
+static const String baseUrl = "http://192.168.1.105:3000";
+
+String _getImageUrl(dynamic images) {
+  if (images is List && images.isNotEmpty) {
+    return "$baseUrl${images[0]}";
+  }
+
+  return "";
+}
   @override
   Widget build(BuildContext context) {
     final productsState = ref.watch(productsListProvider);
@@ -105,11 +114,12 @@ class _ProductListPageState extends ConsumerState<ProductListPage> {
                           // final imageUrl = (images != null && images.isNotEmpty)
                           //     ? images[0].toString()
                           //     : null;
-final images = product['images'] as List?;
+// final images = product['images'] as List?;
 
-final imageUrl = (images != null && images.isNotEmpty)
-    ? "http://192.168.1.106:3000${images[0]}"
-    : null;
+// final imageUrl = (images != null && images.isNotEmpty)
+//     ? "http://192.168.1.105:3000${images[0]}"
+//     : null;
+final imageUrl = _getImageUrl(product['images']);
                           return Card(
                             margin: const EdgeInsets.only(bottom: 12),
                             shape: RoundedRectangleBorder(
@@ -121,25 +131,25 @@ final imageUrl = (images != null && images.isNotEmpty)
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(10),
-                                    child: imageUrl != null
-                                        ? Image.network(
-                                            imageUrl,
-                                            width: 70,
-                                            height: 70,
-                                            fit: BoxFit.cover,
-                                            errorBuilder: (_, _, _) => Container(
-                                              width: 70,
-                                              height: 70,
-                                              color: Colors.grey.shade200,
-                                              child: const Icon(Icons.image_not_supported),
-                                            ),
-                                          )
-                                        : Container(
-                                            width: 70,
-                                            height: 70,
-                                            color: Colors.grey.shade200,
-                                            child: const Icon(Icons.image_not_supported),
-                                          ),
+                                    child: imageUrl.isNotEmpty
+    ? Image.network(
+        imageUrl,
+        width: 70,
+        height: 70,
+        fit: BoxFit.cover,
+        errorBuilder: (_, _, _) => Container(
+          width: 70,
+          height: 70,
+          color: Colors.grey.shade200,
+          child: const Icon(Icons.image_not_supported),
+        ),
+      )
+    : Container(
+        width: 70,
+        height: 70,
+        color: Colors.grey.shade200,
+        child: const Icon(Icons.image_not_supported),
+      ),
                                   ),
                                   const SizedBox(width: 12),
                                   Expanded(
