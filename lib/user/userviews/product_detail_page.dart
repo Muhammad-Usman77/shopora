@@ -9,7 +9,7 @@ class ProductDetailPage extends StatelessWidget {
 
   const ProductDetailPage({super.key, required this.product});
 
-  static const String baseUrl = "http://192.168.1.106:3000";
+  static const String baseUrl = "http://192.168.1.105:3000";
 
   List<String> _getImageUrls() {
     final images = product['images'] as List?;
@@ -42,7 +42,7 @@ class ProductDetailPage extends StatelessWidget {
                         return Image.network(
                           imageUrls[index],
                           fit: BoxFit.cover,
-                          errorBuilder: (_, __, ___) => Container(
+                          errorBuilder: (_, _, _) => Container(
                             color: Colors.grey.shade200,
                             child: const Icon(
                               Icons.image_not_supported_outlined,
@@ -207,7 +207,7 @@ class ProductDetailPage extends StatelessWidget {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.08),
+              color: Colors.black.withValues(alpha: 0.08),
               blurRadius: 10,
               offset: const Offset(0, -2),
             ),
