@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopora/admin/provider/authprovider.dart';
+import 'package:shopora/user/userviews/cart_page.dart';
 import 'package:shopora/user/userviews/product_page.dart';
 import 'package:shopora/views/auth/login.dart';
 
@@ -68,6 +69,16 @@ class HomePage extends ConsumerWidget {
     );
   },
   child: const Text("Manage Products"),
+),
+  const SizedBox(height: 20),
+   ElevatedButton(
+  onPressed: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => CartPage()),
+    );
+  },
+  child: const Text("Manage Cart"),
 ),
   const SizedBox(height: 20),
             /// LOGOUT BUTTON
