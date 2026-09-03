@@ -18,7 +18,7 @@ class ProductBrowsePage extends ConsumerStatefulWidget {
 
 class _ProductBrowsePageState extends ConsumerState<ProductBrowsePage> {
   // ✅ Backend ka base URL (image path ke sath jodne ke liye)
-  static const String baseUrl = "http://192.168.1.105:3000";
+  static const String baseUrl = "http://192.168.1.102:3000";
 
   @override
   void initState() {
