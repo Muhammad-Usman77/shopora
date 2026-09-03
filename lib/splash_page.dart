@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shopora/admin/provider/authprovider.dart';
-import 'package:shopora/home.dart';
-import 'package:shopora/views/admin_home.dart';
-import 'package:shopora/views/auth/login.dart';
+import 'package:shopora/auth/authprovider.dart';
+import 'package:shopora/user/userviews/home.dart';
+import 'package:shopora/admin/admin_home.dart';
+import 'package:shopora/auth/login.dart';
 
 class SplashScreen extends ConsumerWidget {
   const SplashScreen({super.key});

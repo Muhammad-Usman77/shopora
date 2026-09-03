@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shopora/admin/provider/authprovider.dart';
-import 'package:shopora/views/auth/login.dart';
-import 'package:shopora/views/product/product_list.dart';
+import 'package:shopora/auth/authprovider.dart';
+import 'package:shopora/auth/login.dart';
+import 'package:shopora/admin/product/product_list.dart';
 
 class AdminHomePage extends ConsumerWidget {
   const AdminHomePage({super.key});

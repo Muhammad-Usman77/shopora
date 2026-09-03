@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopora/admin/provider/product_provider.dart';
-import 'package:shopora/views/product/addproduct.dart';
-import 'package:shopora/views/product/product_edit.dart';
+import 'package:shopora/admin/product/addproduct.dart';
+import 'package:shopora/admin/product/product_edit.dart';
 
 class ProductListPage extends ConsumerStatefulWidget {
   const ProductListPage({super.key});

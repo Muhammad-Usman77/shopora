@@ -6,8 +6,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
 import 'package:shopora/model/user_model.dart';
-import 'package:shopora/admin/repository/authrepository.dart';
-import 'package:shopora/admin/services/auth.dart';
+import 'package:shopora/auth/authrepository.dart';
+import 'package:shopora/auth/auth_services.dart';
 
 class ApiState<T> {
   final bool isLoading;

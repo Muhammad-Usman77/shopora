@@ -5,7 +5,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:shopora/admin/provider/authprovider.dart';
+import 'package:shopora/auth/authprovider.dart';
 import 'package:shopora/admin/repository/product_repository.dart';
 import 'package:shopora/admin/services/product_service.dart';
 

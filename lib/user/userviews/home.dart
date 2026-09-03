@@ -4,10 +4,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shopora/admin/provider/authprovider.dart';
+import 'package:shopora/auth/authprovider.dart';
 import 'package:shopora/user/userviews/cart_page.dart';
 import 'package:shopora/user/userviews/product_page.dart';
-import 'package:shopora/views/auth/login.dart';
+import 'package:shopora/auth/login.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});

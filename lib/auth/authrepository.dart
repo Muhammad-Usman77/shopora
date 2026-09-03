@@ -8,7 +8,7 @@ import 'package:shopora/api_client.dart';
 
 import 'package:shopora/model/login_model.dart';
 import 'package:shopora/model/signup_model.dart';
-import 'package:shopora/admin/services/auth.dart';
+import 'package:shopora/auth/auth_services.dart';
 
 class AuthRepository {
   final AuthServices authServices;

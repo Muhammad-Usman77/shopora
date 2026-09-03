@@ -1,25 +1,27 @@
 
 // ═══════════════════════════════════════════════════════════
-// 📁 PAGE 1: ui/signup_page.dart
+// 📁 PAGE 2: ui/login_page.dart
 // ═══════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shopora/model/signup_model.dart';
+import 'package:shopora/api_client.dart';
+import 'package:shopora/user/userviews/home.dart';
+import 'package:shopora/model/login_model.dart';
+import 'package:shopora/model/user_model.dart';
+import 'package:shopora/auth/authprovider.dart';
+import 'package:shopora/admin/admin_home.dart';
 
-import 'package:shopora/admin/provider/authprovider.dart';
-import 'package:shopora/views/auth/login.dart';
+import 'package:shopora/auth/signup.dart';
 
-
-class SignupPage extends ConsumerStatefulWidget {
-  const SignupPage({super.key});
+class LoginPage extends ConsumerStatefulWidget {
+  const LoginPage({super.key});
 
   @override
-  ConsumerState<SignupPage> createState() => _SignupPageState();
+  ConsumerState<LoginPage> createState() => _LoginPageState();
 }
 
-class _SignupPageState extends ConsumerState<SignupPage> {
-  final TextEditingController nameController = TextEditingController();
+class _LoginPageState extends ConsumerState<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
@@ -27,60 +29,67 @@ class _SignupPageState extends ConsumerState<SignupPage> {
 
   @override
   void dispose() {
-    nameController.dispose();
     emailController.dispose();
     passwordController.dispose();
     super.dispose();
   }
 
-  void _handleSignup() {
-    final name = nameController.text.trim();
+  void _handleLogin() {
     final email = emailController.text.trim();
     final password = passwordController.text.trim();
 
-    if (name.isEmpty || email.isEmpty || password.isEmpty) {
+    if (email.isEmpty || password.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Please fill all fields")),
+        const SnackBar(content: Text("Please enter email and password")),
       );
       return;
     }
 
-    final signupModel = SignupModel(
-      name: name,
-      email: email,
-      password: password,
-    );
+    final loginModel = LoginModel(email: email, password: password);
 
-    ref.read(signupProvider.notifier).callApi(
-          () => ref.read(authRepositoryProvider).signup(signupModel),
+    ref.read(loginProvider.notifier).callApi(
+          () => ref.read(authRepositoryProvider).login(loginModel),
         );
   }
 
   @override
   Widget build(BuildContext context) {
-    final signupState = ref.watch(signupProvider);
+    final loginState = ref.watch(loginProvider);
 
     /// ✅ Listen for success/error
-    ref.listen(signupProvider, (previous, next) {
-      if (next.data != null && previous?.data == null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Account Created Successfully!")),
-        );
+   ref.listen(loginProvider, (previous, next) {
+  if (next.data != null && previous?.data == null) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Login Successful!")),
+    );
 
-        // ✅ Navigate to Login Page after signup
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (_) => const LoginPage()),
-        );
-      }
+    // ✅ Backend se aaya "user" object nikalein
+    final userData = next.data!["user"];
+    final user = UserModel.fromMap(userData);
 
-      if (next.error != null && previous?.error != next.error) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(next.error!)),
-        );
-      }
-    });
+    // ✅ Global provider mein save karein
+    ref.read(currentUserProvider.notifier).state = user;
 
+    // ✅ Role check karke navigate karein
+    if (user.isAdmin) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const AdminHomePage()),
+      );
+    } else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const HomePage()),
+      );
+    }
+  }
+
+  if (next.error != null && previous?.error != next.error) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(next.error!)),
+    );
+  }
+});
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -91,7 +100,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const Text(
-                "Create Account",
+                "Welcome Back",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
               ),
@@ -99,26 +108,12 @@ class _SignupPageState extends ConsumerState<SignupPage> {
               const SizedBox(height: 8),
 
               const Text(
-                "Sign up to get started",
+                "Login to continue",
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 14, color: Colors.grey),
               ),
 
               const SizedBox(height: 40),
-
-              /// NAME FIELD
-              TextField(
-                controller: nameController,
-                decoration: InputDecoration(
-                  labelText: "Full Name",
-                  prefixIcon: const Icon(Icons.person_outline),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-              ),
-
-              const SizedBox(height: 16),
 
               /// EMAIL FIELD
               TextField(
@@ -160,9 +155,9 @@ class _SignupPageState extends ConsumerState<SignupPage> {
 
               const SizedBox(height: 30),
 
-              /// SIGNUP BUTTON
+              /// LOGIN BUTTON
               ElevatedButton(
-                onPressed: signupState.isLoading ? null : _handleSignup,
+                onPressed: loginState.isLoading ? null : _handleLogin,
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
@@ -170,7 +165,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                   ),
                   backgroundColor: Colors.blue,
                 ),
-                child: signupState.isLoading
+                child: loginState.isLoading
                     ? const SizedBox(
                         height: 20,
                         width: 20,
@@ -180,22 +175,22 @@ class _SignupPageState extends ConsumerState<SignupPage> {
                         ),
                       )
                     : const Text(
-                        "Sign Up",
+                        "Login",
                         style: TextStyle(fontSize: 16, color: Colors.white),
                       ),
               ),
 
               const SizedBox(height: 16),
 
-              /// NAVIGATE TO LOGIN
+              /// NAVIGATE TO SIGNUP
               TextButton(
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (_) => const LoginPage()),
+                    MaterialPageRoute(builder: (_) => const SignupPage()),
                   );
                 },
-                child: const Text("Already have an account? Login"),
+                child: const Text("Don't have an account? Sign Up"),
               ),
             ],
           ),

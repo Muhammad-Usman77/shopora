@@ -2,7 +2,7 @@
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:shopora/admin/provider/authprovider.dart';  // ApiState/ApiNotifier yahan se
+import 'package:shopora/auth/authprovider.dart';  // ApiState/ApiNotifier yahan se
 import 'package:shopora/model/cart_model.dart';
 
 import 'package:shopora/user/repository/cart_repository.dart';
