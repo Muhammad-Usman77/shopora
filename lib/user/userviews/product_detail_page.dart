@@ -3,13 +3,16 @@
 // ═══════════════════════════════════════════════════════════
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shopora/user/provider/cart_provider.dart'; // ✅ apna sahi path daalein
 
-class ProductDetailPage extends StatelessWidget {
+// ✅ StatelessWidget ki jagah ConsumerWidget
+class ProductDetailPage extends ConsumerWidget {
   final Map<String, dynamic> product;
 
   const ProductDetailPage({super.key, required this.product});
 
-  static const String baseUrl = "http://192.168.1.105:3000";
+  static const String baseUrl = "http://192.168.1.102:3000";
 
   List<String> _getImageUrls() {
     final images = product['images'] as List?;
@@ -18,10 +21,28 @@ class ProductDetailPage extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {   // ✅ ref add hua
     final imageUrls = _getImageUrls();
     final stock = (product['stock'] as num?)?.toDouble() ?? 0;
     final rating = (product['rating'] as num?)?.toDouble() ?? 0;
+
+    // ✅ Add to Cart state watch karein
+    final addState = ref.watch(addToCartProvider);
+
+    // ✅ Success/Error listen karein
+    ref.listen(addToCartProvider, (previous, next) {
+      if (next.data != null && previous?.data == null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(next.data!["msg"] ?? "Added to cart")),
+        );
+        ref.read(addToCartProvider.notifier).reset();
+      }
+      if (next.error != null && previous?.error != next.error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(next.error!)),
+        );
+      }
+    });
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -217,20 +238,31 @@ class ProductDetailPage extends StatelessWidget {
           child: SizedBox(
             width: double.infinity,
             child: ElevatedButton.icon(
-              onPressed: stock > 0
+              // ✅ YAHAN CONNECT HUA HAI
+              onPressed: (stock > 0 && !addState.isLoading)
                   ? () {
-                      // ✅ Baad mein: addToCartProvider call hoga
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(
-                          content: Text("${product['name']} added to cart"),
-                        ),
-                      );
+                      ref.read(addToCartProvider.notifier).callApi(
+                            () => ref.read(cartRepositoryProvider).addToCart(
+                                  productId:
+                                      product['_id'] ?? product['id'],
+                                  quantity: 1,
+                                ),
+                          );
                     }
                   : null,
-              icon: const Icon(Icons.shopping_cart_outlined),
-              label: const Text(
-                "Add to Cart",
-                style: TextStyle(fontSize: 16),
+              icon: addState.isLoading
+                  ? const SizedBox(
+                      height: 16,
+                      width: 16,
+                      child: CircularProgressIndicator(
+                        color: Colors.white,
+                        strokeWidth: 2,
+                      ),
+                    )
+                  : const Icon(Icons.shopping_cart_outlined),
+              label: Text(
+                addState.isLoading ? "Adding..." : "Add to Cart",
+                style: const TextStyle(fontSize: 16),
               ),
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.deepPurple,
