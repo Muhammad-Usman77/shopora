@@ -5,7 +5,7 @@ import 'package:shopora/model/product_model.dart';
 
 class ProductServices {
   Future<Response> addProduct(ProductModel product) async {
-    const String url = "http://192.168.1.105:3000/product/create";
+    const String url = "http://192.168.1.102:3000/product/create";
 
     // ✅ Har image ko MultipartFile mein convert karke List banayein
     List<MultipartFile> imageFilesList = [];
@@ -91,13 +91,13 @@ class ProductServices {
 
   /// ✅ GET ALL PRODUCTS (yeh normal GET hai, koi change nahi)
   Future<Response> getProducts() async {
-    const String url = "http://192.168.1.105:3000/product/getAll";
+    const String url = "http://192.168.1.102:3000/product/getAll";
     final response = await dio.get(url);
     return response;
   }
 
   Future<Response> updateProduct(String id, ProductModel product) async {
-    final String url = "http://192.168.1.105:3000/product/$id";
+    final String url = "http://192.168.1.102:3000/product/$id";
 
     // ✅ Har image ko MultipartFile mein convert karke List banayein
     List<MultipartFile> imageFilesList = [];
@@ -145,7 +145,7 @@ class ProductServices {
 
   /// ✅ DELETE PRODUCT (koi image nahi, normal request)
   Future<Response> deleteProduct(String id) async {
-    final String url = "http://192.168.1.105:3000/product/$id";
+    final String url = "http://192.168.1.102:3000/product/$id";
     final response = await dio.delete(url);
     return response;
   }
