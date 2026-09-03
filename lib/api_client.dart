@@ -46,8 +46,15 @@ import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:path_provider/path_provider.dart';
 
-final dio = Dio();
-
+// final dio = Dio();
+final dio = Dio(
+  BaseOptions(
+    baseUrl: 'http://192.168.1.102:3000',
+    connectTimeout: const Duration(seconds: 20),
+    receiveTimeout: const Duration(seconds: 20),
+    sendTimeout: const Duration(seconds: 20),
+  ),
+);
 late PersistCookieJar cookieJar;
 
 Future<void> setupApi() async {
@@ -62,6 +69,9 @@ Future<void> setupApi() async {
   dio.interceptors.add(
     CookieManager(cookieJar),
   );
+ // ✅ YEH 2 LINES ADD KAREIN
+  // dio.options.connectTimeout = const Duration(seconds: 20);
+  // dio.options.receiveTimeout = const Duration(seconds: 20);
 
   print("✅ setupApi() called - cookies will be saved at: $cookiePath");
 }
