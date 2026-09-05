@@ -6,6 +6,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopora/user/provider/product.dart';
+import 'package:shopora/user/provider/wishlist_provider.dart';
 import 'package:shopora/user/userviews/product_detail_page.dart';
 // ✅ apna sahi path daalein
 
@@ -18,7 +19,7 @@ class ProductBrowsePage extends ConsumerStatefulWidget {
 
 class _ProductBrowsePageState extends ConsumerState<ProductBrowsePage> {
   // ✅ Backend ka base URL (image path ke sath jodne ke liye)
-  static const String baseUrl = "http://192.168.1.102:3000";
+  static const String baseUrl = "http://192.168.1.104:3000";
 
   @override
   void initState() {
@@ -44,7 +45,19 @@ class _ProductBrowsePageState extends ConsumerState<ProductBrowsePage> {
   @override
   Widget build(BuildContext context) {
     final productsState = ref.watch(productListProvider);
-
+    ref.listen(addWishlistProvider, (previous, next) {
+      if (next.data != null && previous?.data == null) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text("Added to wishlist")));
+        ref.read(addWishlistProvider.notifier).reset();
+      }
+      if (next.error != null && previous?.error != next.error) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(next.error!)));
+      }
+    });
     return Scaffold(
       backgroundColor: const Color(0xFFF7F7F7),
       appBar: AppBar(
@@ -85,12 +98,12 @@ class _ProductBrowsePageState extends ConsumerState<ProductBrowsePage> {
                   return GestureDetector(
                     onTap: () {
                       // ✅ Baad mein: Product Detail Page pe navigate karein
-                       Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (_) => ProductDetailPage(product: product),
-      ),
-    );
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => ProductDetailPage(product: product),
+                        ),
+                      );
                     },
                     child: Container(
                       decoration: BoxDecoration(
@@ -170,6 +183,37 @@ class _ProductBrowsePageState extends ConsumerState<ProductBrowsePage> {
                                         ),
                                       ),
                                     ],
+                                  ),
+                                ),
+                              ),
+
+                              /// ✅ WISHLIST HEART BUTTON
+                              Positioned(
+                                top: 8,
+                                left: 8,
+                                child: GestureDetector(
+                                  onTap: () {
+                                    ref
+                                        .read(addWishlistProvider.notifier)
+                                        .callApi(
+                                          () => ref
+                                              .read(wishlistRepositoryProvider)
+                                              .addToWishlist(
+                                                product['_id'] ?? product['id'],
+                                              ),
+                                        );
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.all(6),
+                                    decoration: const BoxDecoration(
+                                      color: Colors.white,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: const Icon(
+                                      Icons.favorite_border,
+                                      color: Colors.red,
+                                      size: 16,
+                                    ),
                                   ),
                                 ),
                               ),
