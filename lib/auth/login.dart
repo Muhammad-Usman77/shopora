@@ -5,7 +5,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shopora/api_client.dart';
 import 'package:shopora/user/userviews/home.dart';
 import 'package:shopora/model/login_model.dart';
 import 'package:shopora/model/user_model.dart';
