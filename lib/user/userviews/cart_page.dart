@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopora/user/provider/cart_provider.dart'; // apna path sahi karein
+import 'package:shopora/user/userviews/checkout_page.dart';
 
 import 'package:shopora/utils/api_constants.dart'; // ✅ apna path sahi karein
 
@@ -260,9 +261,14 @@ class _CartPageState extends ConsumerState<CartPage> {
                       ),
                     ),
                     ElevatedButton(
-                      onPressed: () {
-                        // ✅ Baad mein: Order create hoga
-                      },
+                       onPressed: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => CheckoutPage(totalAmount: totalAmount),
+      ),
+    );
+  },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.deepPurple,
                         padding: const EdgeInsets.symmetric(
