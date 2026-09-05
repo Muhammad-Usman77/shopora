@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopora/admin/provider/product_provider.dart';
 import 'package:shopora/admin/product/addproduct.dart';
 import 'package:shopora/admin/product/product_edit.dart';
+import 'package:shopora/utils/api_constants.dart';
 
 class ProductListPage extends ConsumerStatefulWidget {
   const ProductListPage({super.key});
@@ -50,13 +51,12 @@ class _ProductListPageState extends ConsumerState<ProductListPage> {
     );
   }
 
-static const String baseUrl = "http://192.168.1.105:3000";
+// static const String baseUrl = "http://192.168.1.104:3000";
 
 String _getImageUrl(dynamic images) {
   if (images is List && images.isNotEmpty) {
-    return "$baseUrl${images[0]}";
+    return "${ApiConstants.baseUrl}${images[0]}";   // ✅ Yeh use karein
   }
-
   return "";
 }
   @override
@@ -110,15 +110,6 @@ String _getImageUrl(dynamic images) {
                         itemBuilder: (context, index) {
                           final product = productsState.data![index] as Map<String, dynamic>;
 
-                          // final images = product['images'] as List?;
-                          // final imageUrl = (images != null && images.isNotEmpty)
-                          //     ? images[0].toString()
-                          //     : null;
-// final images = product['images'] as List?;
-
-// final imageUrl = (images != null && images.isNotEmpty)
-//     ? "http://192.168.1.105:3000${images[0]}"
-//     : null;
 final imageUrl = _getImageUrl(product['images']);
                           return Card(
                             margin: const EdgeInsets.only(bottom: 12),
