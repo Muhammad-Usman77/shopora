@@ -4,7 +4,7 @@
 
 class ApiConstants {
   // ✅ SIRF YAHAN IP CHANGE KARNA HOGA — poore app mein automatically update ho jayega
-  static const String baseUrl = "http://192.168.1.102:3000";
+  static const String baseUrl = "http://192.168.1.104:3000";
 
   // ─────────────────────────────────────────
   // AUTH ENDPOINTS
@@ -29,6 +29,49 @@ class ApiConstants {
   static const String cartUpdate = "$baseUrl/cart/update";
   static const String cartRemove = "$baseUrl/cart/remove";
   static const String cartClear = "$baseUrl/cart/clear";
+
+
+    // ─────────────────────────────────────────
+  // ORDER ENDPOINTS
+  // ─────────────────────────────────────────
+static const String orderCreate = "$baseUrl/order/createOrder";
+static const String orderGetAll = "$baseUrl/order/getAllOrder";
+static String orderById(String id) => "$baseUrl/order/$id";
+static String orderCancel(String id) => "$baseUrl/order/$id";
+
+  // ─────────────────────────────────────────
+  // ADMIN ORDER ENDPOINTS
+  // ─────────────────────────────────────────
+  static const String adminOrderGetAll = "$baseUrl/order/admin/getAllOrders";
+  static String adminOrderUpdateStatus(String id) => "$baseUrl/order/admin/status/$id";
+
+    // ─────────────────────────────────────────
+  // WISHLIST ENDPOINTS
+  // ─────────────────────────────────────────
+  static const String wishlistAdd = "$baseUrl/wishlist/add";
+  static const String wishlistGetAll = "$baseUrl/wishlist/my";
+  static const String wishlistRemove = "$baseUrl/wishlist/remove";
+
+    // ADDRESS
+  static const String addressAdd = "$baseUrl/address/add";
+  static const String addressGetAll = "$baseUrl/address/my";
+  static String addressById(String id) => "$baseUrl/address/$id";
+
+  // PAYMENT
+  static const String paymentCreate = "$baseUrl/payment/create";
+  static const String paymentGetAll = "$baseUrl/payment/my";
+
+  // REVIEW
+  static const String reviewCreate = "$baseUrl/review/create";
+  static String reviewByProduct(String productId) => "$baseUrl/review/product/$productId";
+  static String reviewById(String id) => "$baseUrl/review/$id";
+
+    // ─────────────────────────────────────────
+  // ADMIN PAYMENT ENDPOINTS
+  // ─────────────────────────────────────────
+  static String adminPaymentUpdateStatus(String id) => "$baseUrl/payment/$id/status";
+  static String adminPaymentRefund(String id) => "$baseUrl/payment/$id/refund";
+    static const String adminPaymentGetAll = "$baseUrl/payment/admin/getAll";
 }
 
 
