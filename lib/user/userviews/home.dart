@@ -6,8 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopora/auth/authprovider.dart';
 import 'package:shopora/user/userviews/cart_page.dart';
+import 'package:shopora/user/userviews/lrder_list_page.dart';
+import 'package:shopora/user/userviews/payment_list_page.dart';
 import 'package:shopora/user/userviews/product_page.dart';
 import 'package:shopora/auth/login.dart';
+import 'package:shopora/user/userviews/wishlist_page.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -79,6 +82,35 @@ class HomePage extends ConsumerWidget {
     );
   },
   child: const Text("Manage Cart"),
+),
+ ElevatedButton(
+  onPressed: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => OrderListPage()),
+    );
+  },
+  child: const Text("Order List"),
+),
+  const SizedBox(height: 20),
+   ElevatedButton(
+  onPressed: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => WishlistPage()),
+    );
+  },
+  child: const Text("Wish List"),
+),
+  const SizedBox(height: 20),
+   ElevatedButton(
+  onPressed: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => PaymentListPage()),
+    );
+  },
+  child: const Text("Payment List Page"),
 ),
   const SizedBox(height: 20),
             /// LOGOUT BUTTON
