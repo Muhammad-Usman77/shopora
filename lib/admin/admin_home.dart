@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shopora/admin/admin_order_list_page.dart';
+import 'package:shopora/admin/admin_paymentlist_page.dart';
 import 'package:shopora/auth/authprovider.dart';
 import 'package:shopora/auth/login.dart';
 import 'package:shopora/admin/product/product_list.dart';
@@ -55,7 +57,26 @@ class AdminHomePage extends ConsumerWidget {
   child: const Text("Manage Products"),
 ),
  const SizedBox(height: 40),
-
+ ElevatedButton(
+  onPressed: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => AdminOrderListPage()),
+    );
+  },
+  child: const Text("Admin Order List Page"),
+),
+ const SizedBox(height: 40),
+  ElevatedButton(
+  onPressed: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (_) => AdminPaymentListPage()),
+    );
+  },
+  child: const Text("All Payments"),
+),
+ const SizedBox(height: 40),
   const SizedBox(height: 40),
             ElevatedButton.icon(
               onPressed: () {
