@@ -4,7 +4,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shopora/user/provider/cart_provider.dart'; // ✅ apna sahi path daalein
+import 'package:shopora/user/provider/cart_provider.dart';
+import 'package:shopora/user/userviews/review_section_page.dart'; // ✅ apna sahi path daalein
 
 // ✅ StatelessWidget ki jagah ConsumerWidget
 class ProductDetailPage extends ConsumerWidget {
@@ -12,7 +13,7 @@ class ProductDetailPage extends ConsumerWidget {
 
   const ProductDetailPage({super.key, required this.product});
 
-  static const String baseUrl = "http://192.168.1.102:3000";
+  static const String baseUrl = "http://192.168.1.104:3000";
 
   List<String> _getImageUrls() {
     final images = product['images'] as List?;
@@ -204,6 +205,12 @@ class ProductDetailPage extends ConsumerWidget {
                     ),
                   ),
                   const SizedBox(height: 8),
+                  const Divider(height: 36),
+
+// ✅ YEH ADD KAREIN (Description section ke baad)
+ReviewSection(productId: product['_id'] ?? product['id']),
+
+const SizedBox(height: 100),
                   Text(
                     product['description'] ?? "",
                     style: TextStyle(
