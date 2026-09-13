@@ -22,8 +22,9 @@ class AddressRepository {
       final response = await addressServices.getMyAddresses();
       final data = response.data;
       List<dynamic> rawList = [];
-      if (data is Map && data['data'] is List) rawList = data['data'];
-      else if (data is List) rawList = data;
+      if (data is Map && data['data'] is List) {
+        rawList = data['data'];
+      } else if (data is List) rawList = data;
       return rawList.map((e) => AddressModel.fromMap(e as Map<String, dynamic>)).toList();
     } on DioException catch (e) {
       throw Exception(_safeError(e));
