@@ -185,7 +185,7 @@ class _ReviewSectionState extends ConsumerState<ReviewSection> {
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: reviews.length,
-            separatorBuilder: (_, __) => const Divider(height: 24),
+            separatorBuilder: (_, _) => const Divider(height: 24),
             itemBuilder: (context, index) {
               final review = reviews[index];
 
