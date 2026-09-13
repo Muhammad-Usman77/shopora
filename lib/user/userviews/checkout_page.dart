@@ -210,8 +210,8 @@ Container(
                 ),
                 child: orderState.isLoading
                     ? const SizedBox(
-                        height: 20,
-                        width: 20,
+                        height: 21,
+                        width: 21,
                         child: CircularProgressIndicator(
                           color: Colors.white,
                           strokeWidth: 2,
