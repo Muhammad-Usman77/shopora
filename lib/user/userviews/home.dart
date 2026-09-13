@@ -124,8 +124,8 @@ class HomePage extends ConsumerWidget {
                     },
               icon: logoutState.isLoading
                   ? const SizedBox(
-                      height: 16,
-                      width: 16,
+                      height: 17,
+                      width: 17,
                       child: CircularProgressIndicator(
                         color: Colors.white,
                         strokeWidth: 2,
