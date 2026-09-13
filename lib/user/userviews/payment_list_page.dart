@@ -90,7 +90,7 @@ class _PaymentListPageState extends ConsumerState<PaymentListPage> {
                                         decoration: BoxDecoration(
                                           color: _statusColor(
                                                   payment.paymentStatus)
-                                              .withOpacity(0.1),
+                                              .withValues(alpha: 0.1),
                                           borderRadius:
                                               BorderRadius.circular(20),
                                         ),
