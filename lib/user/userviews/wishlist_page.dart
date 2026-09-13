@@ -107,7 +107,7 @@ class _WishlistPageState extends ConsumerState<WishlistPage> {
                                 borderRadius: BorderRadius.circular(16),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.black.withOpacity(0.05),
+                                    color: Colors.black.withValues(alpha: 0.05),
                                     blurRadius: 8,
                                   ),
                                 ],
@@ -128,7 +128,7 @@ class _WishlistPageState extends ConsumerState<WishlistPage> {
                                                 width: double.infinity,
                                                 fit: BoxFit.cover,
                                                 errorBuilder:
-                                                    (_, __, ___) => Container(
+                                                    (_, _, _) => Container(
                                                   height: 110,
                                                   color:
                                                       Colors.grey.shade200,
