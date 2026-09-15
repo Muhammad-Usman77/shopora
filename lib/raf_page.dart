@@ -14,6 +14,11 @@ class _RafPageState extends State<RafPage> {
         appBar: AppBar(
             title: Text("Raf Page"),
         ),
+        body: Column(
+          children: [
+            Center(child: Text("Column In Center"),)
+          ],
+        ),
     );
   }
 }
