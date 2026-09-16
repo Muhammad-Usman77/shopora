@@ -16,7 +16,9 @@ class _RafPageState extends State<RafPage> {
         ),
         body: Column(
           children: [
-            Center(child: Text("Column In Center"),)
+           Text("This is Column"),
+           Text("This is Row"),
+           Text("This is Design")
           ],
         ),
     );
