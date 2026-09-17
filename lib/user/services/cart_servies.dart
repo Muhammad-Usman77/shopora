@@ -5,9 +5,10 @@
 
 import 'package:dio/dio.dart';
 import 'package:shopora/api_client.dart';
+import 'package:shopora/utils/api_constants.dart';
 
 class CartServices {
-  static const String baseUrl = "http://192.168.1.104:3000/cart";
+  static const String baseUrl = "${ApiConstants.baseUrl}/cart";
 
   /// ✅ ADD TO CART
   Future<Response> addToCart({
