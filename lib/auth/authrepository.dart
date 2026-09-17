@@ -9,6 +9,7 @@ import 'package:shopora/api_client.dart';
 import 'package:shopora/model/login_model.dart';
 import 'package:shopora/model/signup_model.dart';
 import 'package:shopora/auth/auth_services.dart';
+import 'package:shopora/utils/api_constants.dart';
 
 class AuthRepository {
   final AuthServices authServices;
@@ -25,7 +26,7 @@ class AuthRepository {
       );
    // ✅ YAHAN ADD KAREIN - Signup ke baad cookie check
     final cookies = await cookieJar.loadForRequest(
-      Uri.parse("http://192.168.1.106:3000"),
+      Uri.parse(ApiConstants.baseUrl),
     );
     // print("🔵 SIGNUP - Cookies: $cookies");
       return _safeResponse(response.data);
@@ -46,7 +47,7 @@ class AuthRepository {
       );
   // ✅ YAHAN ADD KAREIN - Login ke baad cookie check
     final cookies = await cookieJar.loadForRequest(
-      Uri.parse("http://192.168.1.106:3000"),
+      Uri.parse(ApiConstants.baseUrl),
     );
    // print("🟢 LOGIN - Cookies: $cookies");
 
@@ -65,7 +66,7 @@ class AuthRepository {
       await authServices.logout();
         // ✅ YAHAN ADD KAREIN - Logout ke baad confirm cookies delete hui
       final cookies = await cookieJar.loadForRequest(
-        Uri.parse("http://192.168.1.106:3000"),
+        Uri.parse(ApiConstants.baseUrl),
       );
       print("🔴 LOGOUT - Cookies after delete: $cookies");
       // Yeh empty list [] print hona chahiye
