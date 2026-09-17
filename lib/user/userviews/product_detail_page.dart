@@ -5,7 +5,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopora/user/provider/cart_provider.dart';
-import 'package:shopora/user/userviews/review_section_page.dart'; // ✅ apna sahi path daalein
+import 'package:shopora/user/userviews/review_section_page.dart';
+import 'package:shopora/utils/api_constants.dart'; // ✅ apna sahi path daalein
 
 // ✅ StatelessWidget ki jagah ConsumerWidget
 class ProductDetailPage extends ConsumerWidget {
@@ -13,7 +14,7 @@ class ProductDetailPage extends ConsumerWidget {
 
   const ProductDetailPage({super.key, required this.product});
 
-  static const String baseUrl = "http://192.168.1.104:3000";
+  static const String baseUrl = ApiConstants.baseUrl;
 
   List<String> _getImageUrls() {
     final images = product['images'] as List?;
