@@ -8,6 +8,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopora/user/provider/product.dart';
 import 'package:shopora/user/provider/wishlist_provider.dart';
 import 'package:shopora/user/userviews/product_detail_page.dart';
+import 'package:shopora/utils/api_constants.dart';
 // ✅ apna sahi path daalein
 
 class ProductBrowsePage extends ConsumerStatefulWidget {
@@ -19,7 +20,7 @@ class ProductBrowsePage extends ConsumerStatefulWidget {
 
 class _ProductBrowsePageState extends ConsumerState<ProductBrowsePage> {
   // ✅ Backend ka base URL (image path ke sath jodne ke liye)
-  static const String baseUrl = "http://192.168.1.104:3000";
+  static const String baseUrl = ApiConstants.baseUrl;
 
   @override
   void initState() {
