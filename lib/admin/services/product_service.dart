@@ -2,10 +2,11 @@ import 'dart:io' show File;
 import 'package:dio/dio.dart';
 import 'package:shopora/api_client.dart';
 import 'package:shopora/model/product_model.dart';
+import 'package:shopora/utils/api_constants.dart';
 
 class ProductServices {
   Future<Response> addProduct(ProductModel product) async {
-    const String url = "http://192.168.1.102:3000/product/create";
+    const String url = "${ApiConstants.baseUrl}/product/create";
 
     // ✅ Har image ko MultipartFile mein convert karke List banayein
     List<MultipartFile> imageFilesList = [];
@@ -91,13 +92,13 @@ class ProductServices {
 
   /// ✅ GET ALL PRODUCTS (yeh normal GET hai, koi change nahi)
   Future<Response> getProducts() async {
-    const String url = "http://192.168.1.102:3000/product/getAll";
+    const String url = "${ApiConstants.baseUrl}/product/getAll";
     final response = await dio.get(url);
     return response;
   }
 
   Future<Response> updateProduct(String id, ProductModel product) async {
-    final String url = "http://192.168.1.102:3000/product/$id";
+    final String url = "${ApiConstants.baseUrl}/product/$id";
 
     // ✅ Har image ko MultipartFile mein convert karke List banayein
     List<MultipartFile> imageFilesList = [];
@@ -145,7 +146,7 @@ class ProductServices {
 
   /// ✅ DELETE PRODUCT (koi image nahi, normal request)
   Future<Response> deleteProduct(String id) async {
-    final String url = "http://192.168.1.102:3000/product/$id";
+    final String url = "${ApiConstants.baseUrl}/product/$id";
     final response = await dio.delete(url);
     return response;
   }
