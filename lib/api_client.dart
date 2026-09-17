@@ -45,11 +45,12 @@ import 'package:dio/dio.dart';
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:shopora/utils/api_constants.dart';
 
 // final dio = Dio();
 final dio = Dio(
   BaseOptions(
-    baseUrl: 'http://192.168.1.102:3000',
+    baseUrl: ApiConstants.baseUrl,
     connectTimeout: const Duration(seconds: 20),
     receiveTimeout: const Duration(seconds: 20),
     sendTimeout: const Duration(seconds: 20),
