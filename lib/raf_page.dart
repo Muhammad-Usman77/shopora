@@ -20,6 +20,7 @@ class _RafPageState extends State<RafPage> {
            Text("This is Row"),
            Text("This is Design"),
            Text("This is Desing"),
+           Text("This is Design2")
           ],
         ),
     );
