@@ -64,7 +64,7 @@ class AdminHomePage extends ConsumerWidget {
       MaterialPageRoute(builder: (_) => AdminOrderListPage()),
     );
   },
-  child: const Text("Admin Order List Page"),
+  child: const Text("Admin Order List Pagee"),
 ),
  const SizedBox(height: 40),
   ElevatedButton(
