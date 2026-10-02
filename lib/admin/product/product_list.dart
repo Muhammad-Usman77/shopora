@@ -13,7 +13,6 @@ class ProductListPage extends ConsumerStatefulWidget {
 }
 
 class _ProductListPageState extends ConsumerState<ProductListPage> {
-
   @override
   void initState() {
     super.initState();
@@ -21,9 +20,9 @@ class _ProductListPageState extends ConsumerState<ProductListPage> {
   }
 
   void _fetchProducts() {
-    ref.read(productsListProvider.notifier).callApi(
-          () => ref.read(productRepositoryProvider).getProducts(),
-        );
+    ref
+        .read(productsListProvider.notifier)
+        .callApi(() => ref.read(productRepositoryProvider).getProducts());
   }
 
   void _handleDelete(String productId) {
@@ -40,8 +39,12 @@ class _ProductListPageState extends ConsumerState<ProductListPage> {
           TextButton(
             onPressed: () {
               Navigator.pop(context);
-              ref.read(deleteProductProvider.notifier).callApi(
-                    () => ref.read(productRepositoryProvider).deleteProduct(productId),
+              ref
+                  .read(deleteProductProvider.notifier)
+                  .callApi(
+                    () => ref
+                        .read(productRepositoryProvider)
+                        .deleteProduct(productId),
                   );
             },
             child: const Text("Delete", style: TextStyle(color: Colors.red)),
@@ -51,14 +54,15 @@ class _ProductListPageState extends ConsumerState<ProductListPage> {
     );
   }
 
-// static const String baseUrl = "http://192.168.1.104:3000";
+  // static const String baseUrl = "http://192.168.1.104:3000";
 
-String _getImageUrl(dynamic images) {
-  if (images is List && images.isNotEmpty) {
-    return "${ApiConstants.baseUrl}${images[0]}";   // ✅ Yeh use karein
+  String _getImageUrl(dynamic images) {
+    if (images is List && images.isNotEmpty) {
+      return "${ApiConstants.baseUrl}${images[0]}"; // ✅ Yeh use karein
+    }
+    return "";
   }
-  return "";
-}
+
   @override
   Widget build(BuildContext context) {
     final productsState = ref.watch(productsListProvider);
@@ -66,17 +70,17 @@ String _getImageUrl(dynamic images) {
     /// ✅ Delete success hone pe list refresh karein
     ref.listen(deleteProductProvider, (previous, next) {
       if (next.data != null && previous?.data == null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Product Deleted")),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text("Product Deleted")));
         ref.read(deleteProductProvider.notifier).reset();
         _fetchProducts();
       }
 
       if (next.error != null && previous?.error != next.error) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(next.error!)),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(next.error!)));
       }
     });
 
@@ -101,87 +105,271 @@ String _getImageUrl(dynamic images) {
         child: productsState.isLoading
             ? const Center(child: CircularProgressIndicator())
             : productsState.error != null
-                ? Center(child: Text(productsState.error!))
-                : (productsState.data == null || productsState.data!.isEmpty)
-                    ? const Center(child: Text("No products yet"))
-                    : ListView.builder(
-                        padding: const EdgeInsets.all(12),
-                        itemCount: productsState.data!.length,
-                        itemBuilder: (context, index) {
-                          final product = productsState.data![index] as Map<String, dynamic>;
+            ? Center(child: Text(productsState.error!))
+            : (productsState.data == null || productsState.data!.isEmpty)
+            ? const Center(child: Text("No products yet"))
+            : ListView.builder(
+  padding: const EdgeInsets.fromLTRB(16, 16, 16, 90),
+  itemCount: productsState.data!.length,
+  itemBuilder: (context, index) {
+    final product =
+        productsState.data![index] as Map<String, dynamic>;
 
-final imageUrl = _getImageUrl(product['images']);
-                          return Card(
-                            margin: const EdgeInsets.only(bottom: 12),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(14),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Row(
-                                children: [
-                                  ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: imageUrl.isNotEmpty
-    ? Image.network(
-        imageUrl,
-        width: 70,
-        height: 70,
-        fit: BoxFit.cover,
-        errorBuilder: (_, _, _) => Container(
-          width: 70,
-          height: 70,
-          color: Colors.grey.shade200,
-          child: const Icon(Icons.image_not_supported),
-        ),
-      )
-    : Container(
-        width: 70,
-        height: 70,
-        color: Colors.grey.shade200,
-        child: const Icon(Icons.image_not_supported),
+    final imageUrl = _getImageUrl(product['images']);
+
+    return Container(
+      margin: const EdgeInsets.only(bottom: 14),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(18),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 12,
+            offset: const Offset(0, 5),
+          ),
+        ],
       ),
-                                  ),
-                                  const SizedBox(width: 12),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          product['name'] ?? "",
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold, fontSize: 15),
-                                        ),
-                                        const SizedBox(height: 4),
-                                        Text(
-                                          "Rs. ${product['price'] ?? 0}",
-                                          style: const TextStyle(color: Colors.deepPurple),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(Icons.edit, color: Colors.blue),
-                                    onPressed: () async {
-                                      await Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (_) => EditProductPage(product: product),
-                                        ),
-                                      );
-                                      _fetchProducts();
-                                    },
-                                  ),
-                                  IconButton(
-                                    icon: const Icon(Icons.delete, color: Colors.red),
-                                    onPressed: () => _handleDelete(product['_id'] ?? product['id']),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
+      child: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // ------------------------------------------------
+            // PRODUCT IMAGE
+            // ------------------------------------------------
+            ClipRRect(
+              borderRadius: BorderRadius.circular(14),
+              child: imageUrl.isNotEmpty
+                  ? Image.network(
+                      imageUrl,
+                      width: 82,
+                      height: 82,
+                      fit: BoxFit.cover,
+                      errorBuilder: (_, _, _) {
+                        return Container(
+                          width: 82,
+                          height: 82,
+                          color: Colors.grey.shade100,
+                          child: Icon(
+                            Icons.image_not_supported_outlined,
+                            color: Colors.grey.shade400,
+                            size: 30,
+                          ),
+                        );
+                      },
+                    )
+                  : Container(
+                      width: 82,
+                      height: 82,
+                      color: Colors.grey.shade100,
+                      child: Icon(
+                        Icons.image_not_supported_outlined,
+                        color: Colors.grey.shade400,
+                        size: 30,
                       ),
+                    ),
+            ),
+
+            const SizedBox(width: 14),
+
+            // ------------------------------------------------
+            // PRODUCT INFORMATION
+            // ------------------------------------------------
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    product['name'] ?? "",
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFF222222),
+                    ),
+                  ),
+
+                  const SizedBox(height: 8),
+
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 5,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.deepPurple.withValues(alpha: 0.08),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      "Rs. ${product['price'] ?? 0}",
+                      style: const TextStyle(
+                        color: Colors.deepPurple,
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            const SizedBox(width: 8),
+
+            // ------------------------------------------------
+            // ACTION BUTTONS
+            // ------------------------------------------------
+            Column(
+              children: [
+                // EDIT
+                Material(
+                  color: Colors.blue.withValues(alpha: 0.10),
+                  borderRadius: BorderRadius.circular(10),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(10),
+                    onTap: () async {
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => EditProductPage(
+                            product: product,
+                          ),
+                        ),
+                      );
+
+                      _fetchProducts();
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.all(9),
+                      child: Icon(
+                        Icons.edit_outlined,
+                        color: Colors.blue,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                ),
+
+                const SizedBox(height: 8),
+
+                // DELETE
+                Material(
+                  color: Colors.red.withValues(alpha: 0.10),
+                  borderRadius: BorderRadius.circular(10),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(10),
+                    onTap: () => _handleDelete(
+                      product['_id'] ?? product['id'],
+                    ),
+                    child: const Padding(
+                      padding: EdgeInsets.all(9),
+                      child: Icon(
+                        Icons.delete_outline,
+                        color: Colors.red,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  },
+),
+            // ListView.builder(
+            //     padding: const EdgeInsets.all(12),
+            //     itemCount: productsState.data!.length,
+            //     itemBuilder: (context, index) {
+            //       final product =
+            //           productsState.data![index] as Map<String, dynamic>;
+
+            //       final imageUrl = _getImageUrl(product['images']);
+            //       return Card(
+            //         margin: const EdgeInsets.only(bottom: 12),
+            //         shape: RoundedRectangleBorder(
+            //           borderRadius: BorderRadius.circular(14),
+            //         ),
+            //         child: Padding(
+            //           padding: const EdgeInsets.all(10),
+            //           child: Row(
+            //             children: [
+            //               ClipRRect(
+            //                 borderRadius: BorderRadius.circular(10),
+            //                 child: imageUrl.isNotEmpty
+            //                     ? Image.network(
+            //                         imageUrl,
+            //                         width: 70,
+            //                         height: 70,
+            //                         fit: BoxFit.cover,
+            //                         errorBuilder: (_, _, _) => Container(
+            //                           width: 70,
+            //                           height: 70,
+            //                           color: Colors.grey.shade200,
+            //                           child: const Icon(
+            //                             Icons.image_not_supported,
+            //                           ),
+            //                         ),
+            //                       )
+            //                     : Container(
+            //                         width: 70,
+            //                         height: 70,
+            //                         color: Colors.grey.shade200,
+            //                         child: const Icon(
+            //                           Icons.image_not_supported,
+            //                         ),
+            //                       ),
+            //               ),
+            //               const SizedBox(width: 12),
+            //               Expanded(
+            //                 child: Column(
+            //                   crossAxisAlignment: CrossAxisAlignment.start,
+            //                   children: [
+            //                     Text(
+            //                       product['name'] ?? "",
+            //                       style: const TextStyle(
+            //                         fontWeight: FontWeight.bold,
+            //                         fontSize: 15,
+            //                       ),
+            //                     ),
+            //                     const SizedBox(height: 4),
+            //                     Text(
+            //                       "Rs. ${product['price'] ?? 0}",
+            //                       style: const TextStyle(
+            //                         color: Colors.deepPurple,
+            //                       ),
+            //                     ),
+            //                   ],
+            //                 ),
+            //               ),
+            //               IconButton(
+            //                 icon: const Icon(Icons.edit, color: Colors.blue),
+            //                 onPressed: () async {
+            //                   await Navigator.push(
+            //                     context,
+            //                     MaterialPageRoute(
+            //                       builder: (_) =>
+            //                           EditProductPage(product: product),
+            //                     ),
+            //                   );
+            //                   _fetchProducts();
+            //                 },
+            //               ),
+            //               IconButton(
+            //                 icon: const Icon(Icons.delete, color: Colors.red),
+            //                 onPressed: () =>
+            //                     _handleDelete(product['_id'] ?? product['id']),
+            //               ),
+            //             ],
+            //           ),
+            //         ),
+            //       );
+            //     },
+            //   ),
+    
       ),
     );
   }
