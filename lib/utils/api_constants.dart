@@ -4,7 +4,7 @@
 
 class ApiConstants {
   // ✅ SIRF YAHAN IP CHANGE KARNA HOGA — poore app mein automatically update ho jayega
-  static const String baseUrl = "http://192.168.1.106:3000";
+  static const String baseUrl = "http://192.168.1.107:3000";
 
   // ─────────────────────────────────────────
   // AUTH ENDPOINTS
