@@ -180,13 +180,13 @@ Container(
   child: Column(
     children: [
       RadioListTile<String>(
-        value: "COD",
+        value: "cod",
         groupValue: selectedPaymentMethod,
         title: const Text("Cash on Delivery"),
         onChanged: (val) => setState(() => selectedPaymentMethod = val!),
       ),
       RadioListTile<String>(
-        value: "Card",
+        value: "card",
         groupValue: selectedPaymentMethod,
         title: const Text("Credit/Debit Card"),
         onChanged: (val) => setState(() => selectedPaymentMethod = val!),
