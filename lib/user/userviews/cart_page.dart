@@ -98,119 +98,301 @@ class _CartPageState extends ConsumerState<CartPage> {
               itemBuilder: (context, index) {
                 final item = items[index];
                 final imageUrl = _getImageUrl(item.images);
+return Container(
+  margin: const EdgeInsets.only(bottom: 14),
+  decoration: BoxDecoration(
+    color: Colors.white,
+    borderRadius: BorderRadius.circular(18),
+    boxShadow: [
+      BoxShadow(
+        color: Colors.black.withOpacity(0.05),
+        blurRadius: 12,
+        offset: const Offset(0, 5),
+      ),
+    ],
+  ),
+  child: Padding(
+    padding: const EdgeInsets.all(12),
+    child: Row(
+      children: [
 
-                return Card(
-                  margin: const EdgeInsets.only(bottom: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: Row(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: imageUrl.isNotEmpty
-                              ? Image.network(
-                                  imageUrl,
-                                  width: 65,
-                                  height: 65,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (_, _, _) => Container(
-                                    width: 65,
-                                    height: 65,
-                                    color: Colors.grey.shade200,
-                                    child: const Icon(
-                                      Icons.image_not_supported,
-                                    ),
-                                  ),
-                                )
-                              : Container(
-                                  width: 65,
-                                  height: 65,
-                                  color: Colors.grey.shade200,
-                                  child: const Icon(
-                                    Icons.image_not_supported,
-                                  ),
-                                ),
-                        ),
-                        const SizedBox(width: 12),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                item.name,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                "Rs. ${item.price} x ${item.quantity}",
-                                style: TextStyle(
-                                  color: Colors.grey.shade600,
-                                  fontSize: 12,
-                                ),
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                "Rs. ${item.totalPrice.toStringAsFixed(0)}",
-                                style: const TextStyle(
-                                  color: Colors.deepPurple,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 14,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            IconButton(
-                              icon: const Icon(
-                                Icons.remove_circle_outline,
-                                size: 20,
-                              ),
-                              onPressed: () {
-                                ref
-                                    .read(removeCartProvider.notifier)
-                                    .callApi(
-                                      () => ref
-                                          .read(cartRepositoryProvider)
-                                          .removeFromCart(item.id),
-                                    );
-                              },
-                            ),
-                            Text("${item.quantity}"),
-                            IconButton(
-                              icon: const Icon(
-                                Icons.add_circle_outline,
-                                size: 20,
-                              ),
-                              onPressed: () {
-                                ref
-                                    .read(updateCartProvider.notifier)
-                                    .callApi(
-                                      () => ref
-                                          .read(cartRepositoryProvider)
-                                          .updateQuantity(
-                                            cartId: item.id,
-                                            quantity: item.quantity + 1,
-                                          ),
-                                    );
-                              },
-                            ),
-                          ],
-                        ),
-                      ],
+        // =====================================================
+        // PRODUCT IMAGE
+        // =====================================================
+
+        ClipRRect(
+          borderRadius: BorderRadius.circular(14),
+          child: imageUrl.isNotEmpty
+              ? Image.network(
+                  imageUrl,
+                  width: 90,
+                  height: 100,
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) => Container(
+                    width: 90,
+                    height: 100,
+                    color: const Color(0xFFF3F1F8),
+                    child: const Icon(
+                      Icons.image_not_supported_outlined,
+                      color: Colors.grey,
+                      size: 30,
                     ),
                   ),
-                );
+                )
+              : Container(
+                  width: 90,
+                  height: 100,
+                  color: const Color(0xFFF3F1F8),
+                  child: const Icon(
+                    Icons.image_not_supported_outlined,
+                    color: Colors.grey,
+                    size: 30,
+                  ),
+                ),
+        ),
+
+        const SizedBox(width: 13),
+
+        // =====================================================
+        // PRODUCT DETAILS
+        // =====================================================
+
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+
+              // PRODUCT NAME
+              Text(
+                item.name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.bold,
+                  color: Color(0xFF20202A),
+                ),
+              ),
+
+              const SizedBox(height: 5),
+
+              // PRICE
+              Text(
+                "Rs. ${item.price}",
+                style: const TextStyle(
+                  fontSize: 13,
+                  color: Colors.black54,
+                ),
+              ),
+
+              const SizedBox(height: 5),
+
+              // TOTAL PRICE
+              Text(
+                "Rs. ${item.totalPrice.toStringAsFixed(0)}",
+                style: const TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.deepPurple,
+                ),
+              ),
+
+              const SizedBox(height: 10),
+
+              // =================================================
+              // QUANTITY CONTROL
+              // =================================================
+
+              Container(
+                height: 38,
+                decoration: BoxDecoration(
+                  color: Colors.deepPurple.withOpacity(0.07),
+                  borderRadius: BorderRadius.circular(11),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+
+                    // MINUS
+                    IconButton(
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(
+                        minWidth: 36,
+                        minHeight: 38,
+                      ),
+                      icon: const Icon(
+                        Icons.remove,
+                        size: 17,
+                        color: Colors.deepPurple,
+                      ),
+                      onPressed: () {
+                        ref
+                            .read(removeCartProvider.notifier)
+                            .callApi(
+                              () => ref
+                                  .read(cartRepositoryProvider)
+                                  .removeFromCart(item.id),
+                            );
+                      },
+                    ),
+
+                    // QUANTITY
+                    Text(
+                      "${item.quantity}",
+                      style: const TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+
+                    // PLUS
+                    IconButton(
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(
+                        minWidth: 36,
+                        minHeight: 38,
+                      ),
+                      icon: const Icon(
+                        Icons.add,
+                        size: 17,
+                        color: Colors.deepPurple,
+                      ),
+                      onPressed: () {
+                        ref
+                            .read(updateCartProvider.notifier)
+                            .callApi(
+                              () => ref
+                                  .read(cartRepositoryProvider)
+                                  .updateQuantity(
+                                    cartId: item.id,
+                                    quantity: item.quantity + 1,
+                                  ),
+                            );
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  ),
+);
+                // return Card(
+                //   margin: const EdgeInsets.only(bottom: 12),
+                //   shape: RoundedRectangleBorder(
+                //     borderRadius: BorderRadius.circular(14),
+                //   ),
+                //   child: Padding(
+                //     padding: const EdgeInsets.all(10),
+                //     child: Row(
+                //       children: [
+                //         ClipRRect(
+                //           borderRadius: BorderRadius.circular(10),
+                //           child: imageUrl.isNotEmpty
+                //               ? Image.network(
+                //                   imageUrl,
+                //                   width: 65,
+                //                   height: 65,
+                //                   fit: BoxFit.cover,
+                //                   errorBuilder: (_, _, _) => Container(
+                //                     width: 65,
+                //                     height: 65,
+                //                     color: Colors.grey.shade200,
+                //                     child: const Icon(
+                //                       Icons.image_not_supported,
+                //                     ),
+                //                   ),
+                //                 )
+                //               : Container(
+                //                   width: 65,
+                //                   height: 65,
+                //                   color: Colors.grey.shade200,
+                //                   child: const Icon(
+                //                     Icons.image_not_supported,
+                //                   ),
+                //                 ),
+                //         ),
+                //         const SizedBox(width: 12),
+                //         Expanded(
+                //           child: Column(
+                //             crossAxisAlignment: CrossAxisAlignment.start,
+                //             children: [
+                //               Text(
+                //                 item.name,
+                //                 maxLines: 1,
+                //                 overflow: TextOverflow.ellipsis,
+                //                 style: const TextStyle(
+                //                   fontWeight: FontWeight.bold,
+                //                   fontSize: 14,
+                //                 ),
+                //               ),
+                //               const SizedBox(height: 4),
+                //               Text(
+                //                 "Rs. ${item.price} x ${item.quantity}",
+                //                 style: TextStyle(
+                //                   color: Colors.grey.shade600,
+                //                   fontSize: 12,
+                //                 ),
+                //               ),
+                //               const SizedBox(height: 4),
+                //               Text(
+                //                 "Rs. ${item.totalPrice.toStringAsFixed(0)}",
+                //                 style: const TextStyle(
+                //                   color: Colors.deepPurple,
+                //                   fontWeight: FontWeight.bold,
+                //                   fontSize: 14,
+                //                 ),
+                //               ),
+                //             ],
+                //           ),
+                //         ),
+                //         Row(
+                //           mainAxisSize: MainAxisSize.min,
+                //           children: [
+                //             IconButton(
+                //               icon: const Icon(
+                //                 Icons.remove_circle_outline,
+                //                 size: 20,
+                //               ),
+                //               onPressed: () {
+                //                 ref
+                //                     .read(removeCartProvider.notifier)
+                //                     .callApi(
+                //                       () => ref
+                //                           .read(cartRepositoryProvider)
+                //                           .removeFromCart(item.id),
+                //                     );
+                //               },
+                //             ),
+                //             Text("${item.quantity}"),
+                //             IconButton(
+                //               icon: const Icon(
+                //                 Icons.add_circle_outline,
+                //                 size: 20,
+                //               ),
+                //               onPressed: () {
+                //                 ref
+                //                     .read(updateCartProvider.notifier)
+                //                     .callApi(
+                //                       () => ref
+                //                           .read(cartRepositoryProvider)
+                //                           .updateQuantity(
+                //                             cartId: item.id,
+                //                             quantity: item.quantity + 1,
+                //                           ),
+                //                     );
+                //               },
+                //             ),
+                //           ],
+                //         ),
+                //       ],
+                //     ),
+                //   ),
+                // );
+            
               },
             ),
           );
