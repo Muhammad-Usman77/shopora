@@ -31,6 +31,7 @@ class _RafPageState extends State<RafPage> {
            Text("This is last fifth desing"),
           Text("This is last sixth desing"),
              Text("This is last seventh desing"),
+                Text("This is last eighth desing"),
           ],
         ),
     );
