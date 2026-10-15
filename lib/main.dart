@@ -35,4 +35,6 @@ class MyApp extends StatelessWidget {
 4️⃣ Provider    → "State kaise manage hoti hai"
         ↓
 5️⃣ UI          → "User action pe kya hota hai"
+
+vue.js
 */
