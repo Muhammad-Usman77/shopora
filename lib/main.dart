@@ -37,4 +37,6 @@ class MyApp extends StatelessWidget {
 5️⃣ UI          → "User action pe kya hota hai"
 
 vue.js
+
+now we work with socket
 */
