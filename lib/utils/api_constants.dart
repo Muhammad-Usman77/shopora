@@ -74,7 +74,7 @@ static String orderCancel(String id) => "$baseUrl/order/$id";
     static const String adminPaymentGetAll = "$baseUrl/payment/admin/getAll";
 }
 
-
+// this all code is in comment. not in use
 // ═══════════════════════════════════════════════════════════
 // 📁 STEP 2: services/auth.dart — YEH TAREEKA USE KAREIN
 // ═══════════════════════════════════════════════════════════
