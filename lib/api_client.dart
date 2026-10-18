@@ -57,7 +57,7 @@ final dio = Dio(
   ),
 );
 late PersistCookieJar cookieJar;
-
+// api client setup function
 Future<void> setupApi() async {
   final appDocDir = await getApplicationDocumentsDirectory();
   final cookiePath = "${appDocDir.path}/.cookies/";
