@@ -32,7 +32,7 @@ class _SignupPageState extends ConsumerState<SignupPage> {
     passwordController.dispose();
     super.dispose();
   }
-
+// signup page
   void _handleSignup() {
     final name = nameController.text.trim();
     final email = emailController.text.trim();
