@@ -619,7 +619,7 @@ class _DashboardCard extends StatelessWidget {
 // ==================================================================
 // OVERVIEW ITEM
 // ==================================================================
-
+// overview item widget for the store overview section
 class _OverviewItem extends StatelessWidget {
   final IconData icon;
   final String title;
