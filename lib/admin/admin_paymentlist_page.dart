@@ -24,7 +24,7 @@ class _AdminPaymentListPageState extends ConsumerState<AdminPaymentListPage> {
           () => ref.read(paymentRepositoryProvider).adminGetAllPayments(),
         );
   }
-
+ // status color based on payment status
   Color _statusColor(String status) {
     switch (status) {
       case "paid":
