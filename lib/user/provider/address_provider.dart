@@ -6,7 +6,7 @@ import 'package:shopora/auth/authprovider.dart';
 import 'package:shopora/model/address_model.dart';
 import 'package:shopora/user/repository/address_repository.dart';
 import 'package:shopora/user/services/adddress_services.dart';
-
+// StateNotifierProvider for managing API state related to addresses
 final addressServicesProvider = Provider<AddressServices>((ref) => AddressServices());
 final addressRepositoryProvider = Provider<AddressRepository>((ref) {
   return AddressRepository(ref.watch(addressServicesProvider));
