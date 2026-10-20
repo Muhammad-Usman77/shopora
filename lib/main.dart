@@ -39,4 +39,6 @@ class MyApp extends StatelessWidget {
 vue.js
 
 now we work with socket
+
+now we work with socket and integration of this with flutter
 */
