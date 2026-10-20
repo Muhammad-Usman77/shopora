@@ -105,7 +105,7 @@ import 'package:shopora/auth/login.dart';
 
 class AdminHomePage extends ConsumerWidget {
   const AdminHomePage({super.key});
-
+// admin home 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ref.listen(logoutProvider, (previous, next) {
