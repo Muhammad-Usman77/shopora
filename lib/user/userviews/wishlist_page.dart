@@ -107,7 +107,7 @@ return GestureDetector(
       borderRadius: BorderRadius.circular(18),
       boxShadow: [
         BoxShadow(
-          color: Colors.black.withOpacity(0.05),
+          color: Colors.black.withValues(alpha: 0.05),
           blurRadius: 12,
           offset: const Offset(0, 5),
         ),
@@ -137,7 +137,7 @@ return GestureDetector(
                       width: double.infinity,
                       fit: BoxFit.cover,
 
-                      errorBuilder: (_, __, ___) {
+                      errorBuilder: (_, _, _) {
                         return Container(
                           height: 135,
                           color: const Color(0xFFF2F2F7),
@@ -296,7 +296,7 @@ return GestureDetector(
                     width: 38,
 
                     decoration: BoxDecoration(
-                      color: Colors.deepPurple.withOpacity(0.10),
+                      color: Colors.deepPurple.withValues(alpha: 0.10),
                       borderRadius: BorderRadius.circular(11),
                     ),
 
