@@ -411,8 +411,8 @@ class _OrderListPageState extends ConsumerState<OrderListPage> {
                                   BorderRadius.circular(18),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(
-                                    0.05,
+                                  color: Colors.black.withValues(
+                                    alpha: 0.05,
                                   ),
                                   blurRadius: 12,
                                   offset: const Offset(0, 5),
@@ -437,7 +437,7 @@ class _OrderListPageState extends ConsumerState<OrderListPage> {
                                         width: 46,
                                         decoration: BoxDecoration(
                                           color: Colors.deepPurple
-                                              .withOpacity(0.10),
+                                              .withValues(alpha: 0.10),
                                           borderRadius:
                                               BorderRadius.circular(
                                             13,
@@ -496,7 +496,7 @@ class _OrderListPageState extends ConsumerState<OrderListPage> {
                                         ),
                                         decoration: BoxDecoration(
                                           color: statusColor
-                                              .withOpacity(0.10),
+                                              .withValues(alpha: 0.10),
                                           borderRadius:
                                               BorderRadius.circular(
                                             20,
@@ -565,8 +565,8 @@ class _OrderListPageState extends ConsumerState<OrderListPage> {
                                                     BoxDecoration(
                                                   color: Colors
                                                       .blue
-                                                      .withOpacity(
-                                                    0.10,
+                                                      .withValues(
+                                                    alpha: 0.10,
                                                   ),
                                                   borderRadius:
                                                       BorderRadius
@@ -699,11 +699,11 @@ class _OrderListPageState extends ConsumerState<OrderListPage> {
                                             .styleFrom(
                                           side: BorderSide(
                                             color: Colors.red
-                                                .withOpacity(0.25),
+                                                .withValues(alpha: 0.25),
                                           ),
                                           backgroundColor: Colors
                                               .red
-                                              .withOpacity(0.04),
+                                              .withValues(alpha: 0.04),
                                           padding:
                                               const EdgeInsets
                                                   .symmetric(
