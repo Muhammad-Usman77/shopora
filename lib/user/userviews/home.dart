@@ -296,7 +296,7 @@ class HomePage extends ConsumerWidget {
                   borderRadius: BorderRadius.circular(22),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.deepPurple.withOpacity(0.20),
+                      color: Colors.deepPurple.withValues(alpha: 0.20),
                       blurRadius: 15,
                       offset: const Offset(0, 7),
                     ),
@@ -309,7 +309,7 @@ class HomePage extends ConsumerWidget {
                       height: 58,
                       width: 58,
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.18),
+                        color: Colors.white.withValues(alpha: 0.18),
                         shape: BoxShape.circle,
                       ),
                       child: const Icon(
@@ -506,10 +506,10 @@ class HomePage extends ConsumerWidget {
                 width: double.infinity,
                 padding: const EdgeInsets.all(17),
                 decoration: BoxDecoration(
-                  color: Colors.deepPurple.withOpacity(0.06),
+                  color: Colors.deepPurple.withValues(alpha: 0.06),
                   borderRadius: BorderRadius.circular(17),
                   border: Border.all(
-                    color: Colors.deepPurple.withOpacity(0.10),
+                    color: Colors.deepPurple.withValues(alpha: 0.10),
                   ),
                 ),
                 child: const Row(
@@ -593,7 +593,7 @@ class _HomeActionCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(18),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: Colors.black.withValues(alpha: 0.05),
                 blurRadius: 12,
                 offset: const Offset(0, 5),
               ),
@@ -605,7 +605,7 @@ class _HomeActionCard extends StatelessWidget {
                 height: 52,
                 width: 52,
                 decoration: BoxDecoration(
-                  color: iconColor.withOpacity(0.10),
+                  color: iconColor.withValues(alpha: 0.10),
                   borderRadius: BorderRadius.circular(14),
                 ),
                 child: Icon(
@@ -692,7 +692,7 @@ class _SmallActionCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(17),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.05),
+                  color: Colors.black.withValues(alpha: 0.05),
                   blurRadius: 10,
                   offset: const Offset(0, 4),
                 ),
@@ -706,7 +706,7 @@ class _SmallActionCard extends StatelessWidget {
                   height: 45,
                   width: 45,
                   decoration: BoxDecoration(
-                    color: iconColor.withOpacity(0.10),
+                    color: iconColor.withValues(alpha: 0.10),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Icon(
