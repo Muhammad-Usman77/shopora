@@ -70,7 +70,7 @@ return Container(
     borderRadius: BorderRadius.circular(18),
     boxShadow: [
       BoxShadow(
-        color: Colors.black.withOpacity(0.05),
+        color: Colors.black.withValues(alpha: 0.05),
         blurRadius: 12,
         offset: const Offset(0, 5),
       ),
@@ -90,7 +90,7 @@ return Container(
               height: 46,
               width: 46,
               decoration: BoxDecoration(
-                color: Colors.deepPurple.withOpacity(0.10),
+                color: Colors.deepPurple.withValues(alpha: 0.10),
                 borderRadius: BorderRadius.circular(13),
               ),
               child: const Icon(
@@ -138,7 +138,7 @@ return Container(
               ),
               decoration: BoxDecoration(
                 color: _statusColor(payment.paymentStatus)
-                    .withOpacity(0.10),
+                    .withValues(alpha: 0.10),
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Row(
@@ -194,7 +194,7 @@ return Container(
                       height: 36,
                       width: 36,
                       decoration: BoxDecoration(
-                        color: Colors.blue.withOpacity(0.10),
+                        color: Colors.blue.withValues(alpha: 0.10),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: const Icon(
