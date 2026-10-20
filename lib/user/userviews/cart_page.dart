@@ -105,7 +105,7 @@ return Container(
     borderRadius: BorderRadius.circular(18),
     boxShadow: [
       BoxShadow(
-        color: Colors.black.withOpacity(0.05),
+        color: Colors.black.withValues(alpha: 0.05),
         blurRadius: 12,
         offset: const Offset(0, 5),
       ),
@@ -128,7 +128,7 @@ return Container(
                   width: 90,
                   height: 100,
                   fit: BoxFit.cover,
-                  errorBuilder: (_, __, ___) => Container(
+                  errorBuilder: (_, _, _) => Container(
                     width: 90,
                     height: 100,
                     color: const Color(0xFFF3F1F8),
@@ -206,7 +206,7 @@ return Container(
               Container(
                 height: 38,
                 decoration: BoxDecoration(
-                  color: Colors.deepPurple.withOpacity(0.07),
+                  color: Colors.deepPurple.withValues(alpha: 0.07),
                   borderRadius: BorderRadius.circular(11),
                 ),
                 child: Row(
