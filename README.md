@@ -17,4 +17,7 @@ For help getting started with Flutter development, view the
 samples, guidance on mobile development, and a full API reference.
 
 Admin Panel
-https://github.com/user-attachments/assets/bcfedfb2-3bd6-41f0-84b1-6cb53eda762e
+
+
+https://github.com/user-attachments/assets/27693b6d-4baa-4300-a893-dda31995bf6d
+
